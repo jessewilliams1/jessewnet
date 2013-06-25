@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test</title>
+		<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+		
+		<script>
+		
+		window.onload = startUp;
+		
+		function startUp() {
+			
+			// Getting DOM objects
+			var intro = document.getElementById('intro');
+			var interests = document.getElementById('interests');
+			var work = document.getElementById('work');
+			var past = document.getElementById('past');
+			
+			// Setting onmouseover
+			intro.onmouseover = function() { this.className = 'menuItemOnHover' };
+			interests.onmouseover = function() { this.className = 'menuItemOnHover' };
+			work.onmouseover = function() { this.className = 'menuItemOnHover' };
+			past.onmouseover = function() { this.className = 'menuItemOnHover' };
+			
+			// Setting onmouseout
+			intro.onmouseout = function() { this.className = 'menuItemOffHover' };
+			interests.onmouseout = function() { this.className = 'menuItemOffHover' };
+			work.onmouseout = function() { this.className = 'menuItemOffHover' };
+			past.onmouseout = function() { this.className = 'menuItemOffHover' };
+			
+			// Setting onclick
+			intro.onclick = function() { setContent('intro') };
+			interests.onclick = function() { setContent('interests') };
+			work.onclick = function() { setContent('work') };
+			past.onclick = function() { setContent('past') };
+			
+		}
+
+		function setContent(content) {
+			
+			// Getting DOM objects
+			var intro = document.getElementById('intro-content');
+			var interests = document.getElementById('interests-content');
+			var work = document.getElementById('work-content');
+			var past = document.getElementById('past-content');
+
+			if (content == 'intro') {
+				intro.style.display = '';
+				interests.style.display = 'none';
+				work.style.display = 'none';
+				past.style.display = 'none';
+			}
+			
+			else if (content == 'interests') {
+				interests.style.display = 'inline';
+				intro.style.display = 'none';
+				work.style.display = 'none';
+				past.style.display = 'none';
+			}
+			
+			else if (content == 'work') {
+				work.style.display = 'inline';
+				intro.style.display = 'none';
+				interests.style.display = 'none';
+				past.style.display = 'none';
+			}
+			
+			else if (content == 'past') {
+				past.style.display = 'inline';
+				intro.style.display = 'none';
+				interests.style.display = 'none';
+				work.style.display = 'none';
+			}
+		}
+
+			 
+		</script>
+
+		<style>
+		
+		body {
+			background-color: #e8e8e8;
+			font-family: 'Shadows Into Light', cursive; }
+		
+		#header {
+			text-align: center;
+			margin: 10px 50px 10px 50px; }
+		
+		#header h1 {
+			color: #000;
+			text-shadow: 0px 0px 10px #fff, 0px 0px 10px #fff, 0px 0px 10px #fff; }
+			
+		#menu {
+			text-align: center;
+			margin: 0px 50px 0px 50px; }
+		
+		#menuContainer {
+			margin-left: auto;
+			margin-right: auto; }
+		
+		.menuItemDefault {
+			cursor: pointer;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			font-size: 18px;
+			padding: 10px;
+			background-color: #f8f8f8;
+			margin: 0px 0px 10px 0px;
+			border: 1px dashed #bebebe;
+			border-radius: 10px;
+			width: 260px;
+			display: inline-block;
+			position: relative; }
+			
+		.menuItemOnHover {
+			cursor: pointer;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			font-size: 18px;
+			padding: 10px;
+			color: #fff;
+			font-weight: bold;
+			background-color: #6699cc;
+			margin: 0px 0px 10px 0px;
+			border: 1px dashed #6699cc;
+			border-radius: 10px;
+			box-shadow: 10px 10px 5px #666;
+			width: 260px;
+			display: inline-block;
+			position: relative;
+			top: -10px;
+			left: -10px;
+			animation: popup .25s;
+			-moz-animation: popup .25s;
+			-webkit-animation: popup .25s;
+			-o-animation: popup .25s; }
+			@keyframes popup {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; }
+				100% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; } }
+			@-moz-keyframes popup {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; }
+				100% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; } }
+			@-webkit-keyframes popup {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; }
+				100% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; } }
+			@-o-keyframes popup {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; }
+				100% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; } }
+			
+			
+		.menuItemOffHover {
+			cursor: pointer;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			font-size: 18px;
+			padding: 10px;
+			color: #000;
+			font-weight: normal;
+			background-color: #f8f8f8;
+			margin: 0px 0px 10px 0px;
+			border: 1px dashed #bebebe;
+			border-radius: 10px;
+			box-shadow: none;
+			width: 260px;
+			display: inline-block;
+			position: relative;
+			top: 0px;
+			left: 0px;
+			animation: popdown 1s;
+			-moz-animation: popdown 1s;
+			-webkit-animation: popdown 1s;
+			-o-animation: popdown 1s; }
+			@keyframes popdown {
+				0% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; } }
+			@-moz-keyframes popdown {
+				0% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; } }
+			@-webkit-keyframes popdown {
+				0% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; } }
+			@-o-keyframes popdown {
+				0% { top: -10px; left: -10px; box-shadow: 10px 10px 5px #666; background-color: #6699cc; font-weight: bold; color: #fff; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #f8f8f8; font-weight: normal; color: #000; } }
+			
+		#content {
+			background-color: #fff;
+			height: 500px;
+			border: 1px dashed #bebebe;
+			border-radius: 10px;
+			text-align: center;
+			margin: 0px 50px 0px 50px; }
+			
+		#footer {
+			text-align: center;
+			margin: 0px 50px 0px 50px; }
+			
+		.clear {
+			clear: both; }
+		
+		.innerContent {
+			width: 100%;
+			float: left; }
+			
+		.innerContent p {
+			text-align: left;
+			font-size: 16px;
+			margin: 0px;
+			padding: 20px; }
+		
+		#interests-content, #work-content, #past-content {
+			display: none; }
+		
+		
+		
+		</style>
+		
+	</head>
+		
+	<body>
+	
+		<div id='header'>
+			<h1>Title<h1>
+		</div>
+		
+		<div id='menu'>
+			<div id='menuContainer'>
+				<div class='menuItemDefault' id='intro'>Introduction</div>
+				<div class='menuItemDefault' id='interests'>My interests</div>
+				<div class='menuItemDefault' id='work'>Recent work</div>
+				<div class='menuItemDefault' id='past'>The past</div>
+			</div>
+			<div class='clear'></div>
+		</div>
+		
+		<div id='content'>
+		
+			<div id='intro-content' class='innerContent'>
+				<p>
+				A Brief background on me is that after high school, I enlisted in
+				the Navy as an aircraft technician. After the military, I continued my
+				education in computer science and was "sucked into" the defense
+				industry by Northrop Grumman Corporation as a software integration
+				engineer.
+				</p>
+				<p>
+				I was recently liberated from that industry by moving to San
+				Francisco and found a great position with in the Silicon Valley. While
+				I love the technology used in my current role, I am finding it hard to
+				be excited about the product (corporate boring-ness). Additionally
+				(and perhaps most important!), is that the commute is  becoming an
+				impediment to my personal life.
+				</p>
+				<br>
+				<p>
+				Interested in contacting? <a href='http://www.linkedin.com/pub/jesse-williams/49/b4b/b62'>Head over to LinkedIn</a>
+				</p>
+				
+			</div>
+			
+			<div id='interests-content' class='innerContent'>
+				<p>
+				Interests!
+				</p>
+			</div>
+			
+			<div id='work-content' class='innerContent'>
+				<p>
+				Work!
+				</p>
+			</div>
+			
+			<div id='past-content' class='innerContent'>
+				<p>
+				Past!
+				</p>
+			</div>
+			
+			<div class='clear'></div>
+			
+		</div>
+		
+		<div id='footer'>
+			<p>footer</p>
+		<div>
+		
+	</body>
+	
+</html>
