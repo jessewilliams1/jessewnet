@@ -2,78 +2,441 @@
 <html>
 	<head>
 		<title>Test</title>
-		<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-		<link href='style.css' rel='stylesheet' type='text/css'>
-		<script src="scripts.js"></script>
+		
+		<link href='http://fonts.googleapis.com/css?family=Economica' rel='stylesheet' type='text/css'>
+		
+		<script>
+		
+		// onload calls an 'initialize' function to get around the
+		// quirk of only being able to call a single function onload.
+		
+		window.onload = initialize;
+		window.onresize = setContentSize;
+		
+		function initialize() {
+			//test();
+			setContentSize();
+			setMenuActions();
+		}
+		
+		function test() {
+			var h = document.getElementById('test').offsetHeight;
+			var w = document.getElementById('test').offsetWidth;	
+			alert('Height: ' + h + 'Width: ' + w);
+		}
+		
+		// Gets the size of various fixed and dynamic elements and computes the height
+		// of the center content... in order to make page responsive to various browsers,
+		// resolutions, devices, etc..
+		function setContentSize() {
+			var windowHeight = window.innerHeight;
+			var headerHeight = document.getElementById('header').offsetHeight;
+			var menuHeight = document.getElementById('menu').offsetHeight;
+			var footerHeight = document.getElementById('footer').offsetHeight;
+			var total = headerHeight + menuHeight + footerHeight;
+			var content = document.getElementById('content');
+			content.style.height = (windowHeight - total) + 'px';
+		}
+		
+		// The mouse events are assigned here to keep them out of the html.
+		// Additionally, the 'hover' styles are assigned dynamically by onmouseover
+		// and onmouseout events to allow for better control of the CSS animation.
+		// 
+		// The exact reasoning is that in order to have animation when an element
+		// loses hover, you need to use the CSS :not(:hover) selector, which executes the
+		// classes animation upon page load (not desired).
+		function setMenuActions() {
+		
+			var leftItems = document.getElementsByClassName('menu-item-left-default');
+			for (var i in leftItems) {
+				leftItems[i].onmouseover = function() { this.className = 'menu-item-left-onhover'; };
+				leftItems[i].onmouseout = function() { this.className = 'menu-item-left-offhover'; };
+			}
+			
+			var rightItems = document.getElementsByClassName('menu-item-right-default');
+			for (var i in rightItems) {
+				rightItems[i].onmouseover = function() { this.className = 'menu-item-right-onhover'; };
+				rightItems[i].onmouseout = function() { this.className = 'menu-item-right-offhover'; };
+			}
+			
+			// Next, assigned onclick actions for elements individually
+			var intro = document.getElementById('intro');
+			var interests = document.getElementById('interests');
+			var past = document.getElementById('past');
+			intro.onclick = function() { setContent('intro-content'); };
+			interests.onclick = function() { setContent('interests-content'); };
+			past.onclick = function() { setContent('past-content'); };
+		}
+		
+		
+	// Changes the content in the center by hiding the 'current' content, and displaying
+	// The one corresponding to what is being clicked
+		function setContent(contentDivId) {
+		
+			var introContent = document.getElementById('intro-content');
+			var interestsContent = document.getElementById('interests-content');
+			var pastContent = document.getElementById('past-content');
+			
+			if (contentDivId == 'intro-content') {
+				introContent.style.display = 'inline';
+				interestsContent.style.display = 'none';
+				pastContent.style.display = 'none';
+				
+			} else if (contentDivId == 'interests-content') {
+				interestsContent.style.display = 'inline';
+				introContent.style.display = 'none';
+				pastContent.style.display = 'none';
+				
+			} else if (contentDivId == 'past-content') {
+				pastContent.style.display = 'inline';
+				introContent.style.display = 'none';
+				interestsContent.style.display = 'none';
+			}
+		}
+ 		
+		</script>
+
+		<style>
+		
+			html, body {
+				font-size: 24px;
+				color: #fff;
+				margin: 0px;
+				background-color: #333;
+				font-family: 'Economica', sans-serif; }
+
+			#header {
+				font-size: 40px;
+				font-weight: bold;
+				padding: 0px 20px 0px 0px;
+				text-align: right;
+				height: 100px; }
+			
+				
+			#menu {
+				padding: 5px 0px 0px 5px;
+				background-color: #b1b1b1; }
+			
+			#menu-container-left {
+				text-align: center;
+				display: inline-block;
+				width: 69%;
+				margin: 0px; }
+				
+			#menu-container-right {
+				text-align: center;
+				margin: 0px;
+				position: absolute;
+				top: -10;
+				width: 29%;
+				display: inline-block; }
+			
+			#content {
+				min-height: 200px;
+				overflow: scroll; }
+				
+			#content p {
+				padding: 10px;
+				margin: 0px; }
+				
+			#footer {
+				height: 50px;
+				color: #000;
+				padding: 10px;
+				background-color: #b1b1b1; }
+				
+			.menu-item-left-default {
+				display: inline-block;
+				margin: 0px 0px 5px 0px;
+				text-align: center;
+				width: 150px;
+				cursor: pointer;
+				user-select: none;
+				-moz-user-select: none;
+  				-webkit-user-select: none;
+  				-ms-user-select: none;
+				font-weight: bold;
+				border-radius: 10px;
+				color: #fff;
+				font-size: 24px;
+				padding: 5px 10px 5px 10px;
+				background-color: #777; }
+			
+			
+			/* ON HOVER */
+			.menu-item-left-onhover {
+				text-align: center;
+				width: 150px;
+				cursor: pointer;
+				user-select: none;
+				-moz-user-select: none;
+  				-webkit-user-select: none;
+  				-ms-user-select: none;
+				font-weight: bold;
+				border-radius: 10px;
+				color: #000;
+				font-size: 24px;
+				padding: 5px 10px 5px 10px;
+				margin: 0px 0px 5px 0px;
+				display: inline-block;
+				background-color: #6699cc; 
+				box-shadow: 5px 5px 5px #333;
+				position: relative;
+				top: -5px;
+				left: -5px;
+				animation: popup-left .25s;
+				-moz-animation: popup-left .25s;
+				-webkit-animation: popup-left .25s;
+				-o-animation: popup-left .25s; }
+			@keyframes popup-left {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; }
+				100% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; } }
+			@-moz-keyframes popup-left {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; }
+				100% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; } }
+			@-webkit-keyframes popup-left {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; }
+				100% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; } }
+			@-o-keyframes popup-left {
+				0% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; }
+				100% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; } }
+				
+			/* OFF HOVER */
+			.menu-item-left-offhover {
+				text-align: center;
+				width: 150px;
+				cursor: pointer;
+				user-select: none;
+				-moz-user-select: none;
+  				-webkit-user-select: none;
+  				-ms-user-select: none;
+				font-weight: bold;
+				border-radius: 10px;
+				color: #fff;
+				font-size: 24px;
+				padding: 5px 10px 5px 10px;
+				margin: 0px 0px 5px 0px;
+				display: inline-block;
+				background-color: #777; 
+				box-shadow: none;
+				position: relative;
+				top: 0px;
+				left: 0px;
+				animation: popdown-left .25s;
+				-moz-animation: popdown-left .25s;
+				-webkit-animation: popdown-left .25s;
+				-o-animation: popdown-left .25s; }
+			@keyframes popdown-left {
+				0% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; } }
+			@-moz-keyframes popdown-left {
+				0% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; } }
+			@-webkit-keyframes popdown-left {
+				0% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; } }
+			@-o-keyframes popdown-left {
+				0% { top: -5px; left: -5px; box-shadow: 5px 5px 5px #333; background-color: #6699cc; color: #000; }
+				100% { top: 0px; left: 0px; box-shadow: none; background-color: #777; color: #fff; } }
+	
+				
+			.menu-item-right-default {
+				position: relative;
+				top: 1px;
+				left: 0px
+				cursor: pointer;
+				margin: 0px 0px 0px 20px;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				border: 1px solid #777;
+				box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff;
+				border-radius: 5px;
+				background-color: #777;
+				background-size: 32px 32px;
+				background-repeat: no-repeat; }
+				
+			.menu-item-right-onhover {
+				position: relative;
+				top: -4px;
+				left: -5px;
+				cursor: pointer;
+				margin: 0px 0px 0px 20px;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				border: 1px solid #6699cc;
+				box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000;
+				border-radius: 5px;
+				background-color: #6699cc;
+				background-size: 32px 32px;
+				background-repeat: no-repeat;
+				animation: popupright .25s;
+				-moz-animation: popupright .25s;
+				-webkit-animation: popupright .25s;
+				-o-animation: popupright .25s; }
+			@keyframes popupright {
+				0% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 }
+				100% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; } }
+			@-moz-keyframes popupright {
+				0% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 }
+				100% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; } }
+			@-webkit-keyframes popupright {
+				0% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 }
+				100% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; } }
+			@-o-keyframes popupright {
+				0% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 }
+				100% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; } }
+				
+			.menu-item-right-offhover {
+				position: relative;
+				top: 1px;
+				left: 0px;
+				cursor: pointer;
+				margin: 0px 0px 0px 20px;
+				display: inline-block;
+				width: 32px;
+				height: 32px;
+				border: 1px solid #777;
+				box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff;
+				border-radius: 5px;
+				background-color: #777;
+				background-size: 32px 32px;
+				background-repeat: no-repeat;
+				animation: popdown-right .25s;
+				-moz-animation: popdown-right .25s;
+				-webkit-animation: popdown-right .25s;
+				-o-animation: popdown-right .25s; }
+			@keyframes popdown-right {
+				0% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; }
+				100% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 } }
+			@-moz-keyframes popdown-right {
+				0% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; }
+				100% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 } }
+			@-webkit-keyframes popdown-right {
+				0% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; }
+				100% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 } }
+			@-o-keyframes popdown-right {
+				0% { top: -4px; left: -5px; box-shadow: 0px 0px 2px #6699cc, 0px 0px 2px #6699cc, 5px 5px 5px #000; background-color: #6699cc; 1px solid #6699cc; }
+				100% { top: 1px; left: 0px; box-shadow: 0px 0px 2px #777, 0px 0px 2px #777, 0px 0px 0px #fff; background-color: #777; border: 1px solid #777 } }
+				
+			#interests-content, #past-content {
+				display: none; }
+			
+		</style>
+		
 	</head>
 		
 	<body>
-	
+		<!--------- HEADER --------->
 		<div id='header'>
-			<h1>Title<h1>
+			Jesse Williams
 		</div>
+		<!--------- HEADER --------->
 		
+		
+		<!--------------------------------- MENU --------------------------------->
 		<div id='menu'>
-			<div id='menuContainer'>
-				<div class='menuItemDefault' id='intro'>Introduction</div>
-				<div class='menuItemDefault' id='interests'>My interests</div>
-				<div class='menuItemDefault' id='work'>Recent work</div>
-				<div class='menuItemDefault' id='past'>The past</div>
+			<div id='menu-container-left'>
+				<div class='menu-item-left-default' id='intro'>Intro</div>
+				<div class='menu-item-left-default' id='interests'>Interests</div>
+				<div class='menu-item-left-default' id='past'>The past</div>
 			</div>
-			<div class='clear'></div>
+			
+			<div id='menu-container-right'>
+			
+				<div class='menu-item-right-default' id='linkedin-box'>
+					<a href='http://www.linkedin.com/pub/jesse-williams/49/b4b/b62'><img src='linkedin.png'></a>
+				</div>
+				
+				<div class='menu-item-right-default' id='github-box'>
+					<a href='https://github.com/jessewilliams1'><img src='github.png'></a>
+				</div>
+				
+				<div class='menu-item-right-default' id='twitter-box'>
+					<a href='https://twitter.com/jessewnet'><img src='twitter.png'></a>
+				</div>
+				
+				<div class='menu-item-right-default' id='googleplus-box'>
+					<a href='https://plus.google.com/u/0/113643235649407854738/posts/p/pub'><img src='googleplus.png'></a>
+				</div>
+
+			</div>
 		</div>
+		<!--------------------------------- MENU --------------------------------->
 		
+		
+		<!----------------------------------- CONTENT ----------------------------------->
 		<div id='content'>
 		
-			<div id='intro-content' class='innerContent'>
+			<div id='intro-content'>
+				<p>Welcome!</p>
 				<p>
-				A Brief background on me is that after high school, I enlisted in
-				the Navy as an aircraft technician. After the military, I continued my
-				education in computer science and was "sucked into" the defense
-				industry by Northrop Grumman Corporation as a software integration
-				engineer.
-				</p>
-				<p>
-				I was recently liberated from that industry by moving to San
-				Francisco and found a great position with in the Silicon Valley. While
-				I love the technology used in my current role, I am finding it hard to
-				be excited about the product (corporate boring-ness). Additionally
-				(and perhaps most important!), is that the commute is  becoming an
-				impediment to my personal life.
-				</p>
-				<br>
-				<p>
-				Interested in contacting? <a href='http://www.linkedin.com/pub/jesse-williams/49/b4b/b62'>Head over to LinkedIn</a>
-				</p>
-				
-			</div>
-			
-			<div id='interests-content' class='innerContent'>
-				<p>
-				Interests!
+					I'm Jesse, an full-stack software developer in San Francisco. I 
+					currently commute to the Silicon Valley everyday for my current 
+					position and am growing quite tired of it. I am actively looking for 
+					new and exciting opportunities and am open to both full-time roles 
+					and contracts.
 				</p>
 			</div>
 			
-			<div id='work-content' class='innerContent'>
-				<p>
-				Work!
-				</p>
+			<div id='interests-content'>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
+				<p>interests!</p>
 			</div>
 			
-			<div id='past-content' class='innerContent'>
-				<p>
-				Past!
-				</p>
+			<div id='past-content'>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
+				<p>past!</p>
 			</div>
-			
-			<div class='clear'></div>
 			
 		</div>
-		
-		<div id='footer'>
-			<p>footer</p>
-		<div>
-		
-	</body>
 	
+		<!----------------------------------- CONTENT ----------------------------------->
+		
+		
+		<!------ FOOTER ------>
+		<div id='footer'>
+			Icon pack: <a href='http://svengraph.deviantart.com/'>svengraph</a>
+		</div>
+		<!------ FOOTER ------>
+	
+	</body>
+
 </html>
