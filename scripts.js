@@ -1,67 +1,86 @@
+// onload calls an 'initialize' function to get around the
+// quirk of only being able to call a single function onload.
 
-window.onload = startUp;
+window.onload = initialize;
+window.onresize = setContentSize;
 
-function startUp() {
-	
-	// Getting DOM objects
-	var intro = document.getElementById('intro');
-	var interests = document.getElementById('interests');
-	var work = document.getElementById('work');
-	var past = document.getElementById('past');
-	
-	// Setting onmouseover
-	intro.onmouseover = function() { this.className = 'menuItemOnHover' };
-	interests.onmouseover = function() { this.className = 'menuItemOnHover' };
-	work.onmouseover = function() { this.className = 'menuItemOnHover' };
-	past.onmouseover = function() { this.className = 'menuItemOnHover' };
-	
-	// Setting onmouseout
-	intro.onmouseout = function() { this.className = 'menuItemOffHover' };
-	interests.onmouseout = function() { this.className = 'menuItemOffHover' };
-	work.onmouseout = function() { this.className = 'menuItemOffHover' };
-	past.onmouseout = function() { this.className = 'menuItemOffHover' };
-	
-	// Setting onclick
-	intro.onclick = function() { setContent('intro') };
-	interests.onclick = function() { setContent('interests') };
-	work.onclick = function() { setContent('work') };
-	past.onclick = function() { setContent('past') };
-	
+function initialize() {
+	//test();
+	setContentSize();
+	setMenuActions();
 }
 
-function setContent(content) {
-	
-	// Getting DOM objects
-	var intro = document.getElementById('intro-content');
-	var interests = document.getElementById('interests-content');
-	var work = document.getElementById('work-content');
-	var past = document.getElementById('past-content');
+function test() {
+	var h = document.getElementById('test').offsetHeight;
+	var w = document.getElementById('test').offsetWidth;	
+	alert('Height: ' + h + 'Width: ' + w);
+}
 
-	if (content == 'intro') {
-		intro.style.display = '';
-		interests.style.display = 'none';
-		work.style.display = 'none';
-		past.style.display = 'none';
+// Gets the size of various fixed and dynamic elements and computes the height
+// of the center content... in order to make page responsive to various browsers,
+// resolutions, devices, etc..
+function setContentSize() {
+	var windowHeight = window.innerHeight;
+	var headerHeight = document.getElementById('header').offsetHeight;
+	var menuHeight = document.getElementById('menu').offsetHeight;
+	var footerHeight = document.getElementById('footer').offsetHeight;
+	var total = headerHeight + menuHeight + footerHeight;
+	var content = document.getElementById('content');
+	content.style.height = (windowHeight - total) + 'px';
+}
+
+// The mouse events are assigned here to keep them out of the html.
+// Additionally, the 'hover' styles are assigned dynamically by onmouseover
+// and onmouseout events to allow for better control of the CSS animation.
+// 
+// The exact reasoning is that in order to have animation when an element
+// loses hover, you need to use the CSS :not(:hover) selector, which executes the
+// classes animation upon page load (not desired).
+function setMenuActions() {
+
+	var leftItems = document.getElementsByClassName('menu-item-left-default');
+	for (var i in leftItems) {
+		leftItems[i].onmouseover = function() { this.className = 'menu-item-left-onhover'; };
+		leftItems[i].onmouseout = function() { this.className = 'menu-item-left-offhover'; };
 	}
 	
-	else if (content == 'interests') {
-		interests.style.display = 'inline';
-		intro.style.display = 'none';
-		work.style.display = 'none';
-		past.style.display = 'none';
+	var rightItems = document.getElementsByClassName('menu-item-right-default');
+	for (var i in rightItems) {
+		rightItems[i].onmouseover = function() { this.className = 'menu-item-right-onhover'; };
+		rightItems[i].onmouseout = function() { this.className = 'menu-item-right-offhover'; };
 	}
 	
-	else if (content == 'work') {
-		work.style.display = 'inline';
-		intro.style.display = 'none';
-		interests.style.display = 'none';
-		past.style.display = 'none';
-	}
+	// Next, assigned onclick actions for elements individually
+	var intro = document.getElementById('intro');
+	var interests = document.getElementById('interests');
+	var past = document.getElementById('past');
+	intro.onclick = function() { setContent('intro-content'); };
+	interests.onclick = function() { setContent('interests-content'); };
+	past.onclick = function() { setContent('past-content'); };
+}
+
+
+// Changes the content in the center by hiding the 'current' content, and displaying
+// The one corresponding to what is being clicked
+function setContent(contentDivId) {
+
+	var introContent = document.getElementById('intro-content');
+	var interestsContent = document.getElementById('interests-content');
+	var pastContent = document.getElementById('past-content');
 	
-	else if (content == 'past') {
-		past.style.display = 'inline';
-		intro.style.display = 'none';
-		interests.style.display = 'none';
-		work.style.display = 'none';
+	if (contentDivId == 'intro-content') {
+		introContent.style.display = 'inline';
+		interestsContent.style.display = 'none';
+		pastContent.style.display = 'none';
+		
+	} else if (contentDivId == 'interests-content') {
+		interestsContent.style.display = 'inline';
+		introContent.style.display = 'none';
+		pastContent.style.display = 'none';
+		
+	} else if (contentDivId == 'past-content') {
+		pastContent.style.display = 'inline';
+		introContent.style.display = 'none';
+		interestsContent.style.display = 'none';
 	}
 }
