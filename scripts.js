@@ -5,7 +5,6 @@ window.onload = initialize;
 window.onresize = setContentSize;
 
 function initialize() {
-	//test();
 	setContentSize();
 	setMenuActions();
 }
@@ -57,6 +56,13 @@ function setMenuActions() {
 	intro.onclick = function() { setContent('intro-content'); };
 	interests.onclick = function() { setContent('interests-content'); };
 	past.onclick = function() { setContent('past-content'); };
+	
+	var twitterBox = document.getElementById('twitter-box');
+	var linkedinBox = document.getElementById('linkedin-box');
+	var githubBox = document.getElementById('github-box');
+	twitterBox.onclick = function() { window.location.href = 'https://twitter.com/jessewnet'; };
+	linkedinBox.onclick = function() { window.location.href = 'http://www.linkedin.com/pub/jesse-williams/49/b4b/b62'; };
+	githubBox.onclick = function() { window.location.href = 'https://github.com/jessewilliams1'; };
 }
 
 
