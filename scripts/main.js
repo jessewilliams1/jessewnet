@@ -7,12 +7,9 @@ window.onresize = setContentSize;
 function initialize() {
 	setContentSize();
 	setMenuActions();
-}
-
-function test() {
-	var h = document.getElementById('test').offsetHeight;
-	var w = document.getElementById('test').offsetWidth;	
-	alert('Height: ' + h + 'Width: ' + w);
+	getPosts('category', 'intro');
+	getPosts('category', 'interests');
+	getPosts('category', 'past');
 }
 
 // Gets the size of various fixed and dynamic elements and computes the height
@@ -89,4 +86,37 @@ function setContent(contentDivId) {
 		introContent.style.display = 'none';
 		interestsContent.style.display = 'none';
 	}
+}
+
+function getPosts(criteria, value) {
+	
+	var url = 'https://api.mongohq.com/databases/blog/collections/posts/documents?_apikey=XXXXXXXXXXXX=' + criteria + ':' + value; // Your API key needs to be here 
+	$.getJSON(url, function(response) {
+		for (i in response) {
+			var post = document.createElement('div');
+			var postTitle = document.createElement('h2');
+			var postAuthor = document.createElement('h3');
+			var postCategory = document.createElement('h3');
+			var postContent = document.createElement('p');
+			
+			var id = response[i]._id.$oid;
+			var title = response[i].title;
+			var author = response[i].author;
+			var category = response[i].category;
+			var content = response[i].content;
+
+			post.id = id;
+			post.className = category + '-post';
+			
+			postTitle.innerHTML = title;
+			postAuthor.innerHTML = 'Posted by ' + author;
+			postContent.innerHTML = content;
+
+			post.appendChild(postTitle);
+			post.appendChild(postAuthor);
+			post.appendChild(postContent);
+	
+			document.getElementById(category + '-content').appendChild(post);
+		}
+	});
 }

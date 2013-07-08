@@ -5,6 +5,15 @@ html, body {
 	background-color: #333;
 	font-family: 'Economica', sans-serif; }
 
+a:link {
+	color: #6699cc; }
+
+a:visited {
+	color: #6699cc; }
+
+a:hover {
+	color: #ff0000; }
+
 #header {
 	font-size: 40px;
 	font-weight: bold;
@@ -34,6 +43,9 @@ html, body {
 #content p {
 	padding: 10px;
 	margin: 0px; }
+
+#content h3 {
+	margin-left: 10px; }
 	
 #content img {
 	border-radius: 20px;
@@ -226,15 +238,15 @@ html, body {
 	display: none; }
 	
 #linkedin-box {
-	background-image: url('linkedin.png');
+	background-image: url('images/linkedin.png');
 	background-repeat: no-repeat; }
 	
 #github-box {
-	background-image: url('github.png');
+	background-image: url('images/github.png');
 	background-repeat: no-repeat; }	
 	
 #twitter-box {
-	background-image: url('twitter.png');
+	background-image: url('images/twitter.png');
 	background-repeat: no-repeat; }	
 
 .horitonzalLine {
@@ -243,3 +255,10 @@ html, body {
 	
 .clear {
 	clear: both; }
+
+.intro-post h2, .intro-post h3, .interests-post h3, .past-post h3 {
+	display: none; }
+
+.interests-post h2, .past-post h2 {
+	font-size: 30px;
+	margin-left: 10px; }
